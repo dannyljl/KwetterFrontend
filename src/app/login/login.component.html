@@ -1,0 +1,23 @@
+<h1>Contact us</h1>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div>
+  <label>
+    username:
+  </label>
+    <input type="text" formControlName="username" class="form-control">
+    </div>
+
+<div>
+  <label>
+    password:
+  </label>
+  <input type="password" formControlName="password" class="form-control">
+    </div>
+
+  <input type="submit" value="Send message" class="cta">
+
+
+</form>
+
