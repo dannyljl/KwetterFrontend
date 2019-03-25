@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import {LoginService} from '../login.service';
+import {User} from '../../Models/User';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
 
   username = new FormControl('');
   password = new FormControl('');
+
+  user: User;
 
   constructor(private formbuilder: FormBuilder, private loginService: LoginService) {
   }
@@ -28,6 +31,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.f.username.value + this.f.password.value);
+    this.user = new User();
+    this.user.username = this.f.username.value;
+    this.user.password = this.f.password.value;
+    this.loginService.Login(this.user)
+      .subscribe(
+        data => {
+          console.log(this.username = data.username);
+        }
+      );
   }
 
 }
