@@ -12,6 +12,9 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { StartpageComponent } from './startpage/startpage.component';
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { LoginComponent } from './login/login.component';
     ContactComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
+    ProfilepageComponent,
+    StartpageComponent,
   ],
   imports: [
     BrowserModule,

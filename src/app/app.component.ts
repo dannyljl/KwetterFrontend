@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {User} from '../Models/User';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'KwetterFrontEnd';
+
+  loggerUser: User;
+
 }

@@ -1,0 +1,27 @@
+<h1>Register</h1>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label>
+      username:
+    </label>
+    <input type="text" formControlName="username" class="form-control">
+  </div>
+
+  <div>
+    <label>
+      password:
+    </label>
+    <input type="password" formControlName="password" class="form-control">
+  </div>
+
+  <input type="submit" value="Send message" class="cta">
+
+
+</form>
+
+<div *ngIf="user" class="results">
+  <strong>Name:</strong>
+  <span>username  "{{user.username}}" is taken</span>
+</div>

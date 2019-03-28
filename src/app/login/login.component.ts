@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
-import {LoginService} from '../login.service';
+import {LoginService} from '../services/login.service';
 import {User} from '../../Models/User';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  username = new FormControl('');
-  password = new FormControl('');
+  username: string;
+  password: string;
 
   user: User;
 
-  constructor(private formbuilder: FormBuilder, private loginService: LoginService) {
+  constructor(private formbuilder: FormBuilder, private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -30,14 +31,18 @@ export class LoginComponent implements OnInit {
   get f() {return this.loginForm.controls; }
 
   onSubmit() {
-    console.log(this.f.username.value + this.f.password.value);
     this.user = new User();
     this.user.username = this.f.username.value;
     this.user.password = this.f.password.value;
     this.loginService.Login(this.user)
       .subscribe(
         data => {
-          console.log(this.username = data.username);
+          if (data !== null) {
+            this.user = data;
+            console.log(this.user);
+            localStorage.setItem('loggedUser', JSON.stringify(this.user))
+            this.router.navigate(['profilepage']);
+          }
         }
       );
   }
