@@ -61,4 +61,8 @@ export class ProfilepageComponent implements OnInit {
       );
   }
 
+  onClick(id: number) {
+    console.log('hey');
+  }
+
 }

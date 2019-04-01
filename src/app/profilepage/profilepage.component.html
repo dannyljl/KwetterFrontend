@@ -114,18 +114,18 @@
 <p>
   following
 </p>
-<ul *ngIf="visitedUser.followings">
+<ul *ngIf="visitedUser">
   <li *ngFor="let following of visitedUser.followings">
-    <p>{{following.userId}} {{following.name}}</p>
+    <p (click)="onClick(following.userId)">{{following.userId}} {{following.name}}</p>
   </li>
 </ul>
 
 <p>
   followers
 </p>
-<ul *ngIf="visitedUser.followers">
+<ul *ngIf="visitedUser">
   <li *ngFor="let follower of visitedUser.followers">
-    <p>{{follower.userId}} {{follower.name}}</p>
+    <p (click)="onClick(follower.userId)")>{{follower.userId}} {{follower.name}}</p>
   </li>
 </ul>
 
