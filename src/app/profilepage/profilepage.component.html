@@ -1,3 +1,103 @@
-<p>
-  profilepage works!
-</p>
+
+<div *ngIf="user">
+<h1>Hello {{user.username}}</h1>
+<h1>Visiting {{visitedUser.username}}</h1>
+</div>
+
+<div *ngIf="user.userId === visitedUser.userId">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label>
+      bio:
+    </label>
+    <input type="text" formControlName="bio" class="form-control" value="{{visitedUser.bio}}">
+  </div>
+
+  <div>
+    <label>
+      image:
+    </label>
+    <input type="text" formControlName="image" class="form-control" value="{{visitedUser.image}}">
+  </div>
+
+  <div>
+    <label>
+      location:
+    </label>
+    <input type="text" formControlName="location" class="form-control" value="{{visitedUser.location}}">
+  </div>
+
+  <div>
+    <label>
+      name:
+    </label>
+    <input type="text" formControlName="name" class="form-control" value="{{visitedUser.name}}">
+  </div>
+
+  <div>
+    <label>
+      username:
+    </label>
+    <input type="text" formControlName="username" class="form-control" value="{{visitedUser.username}}">
+  </div>
+
+  <div>
+    <label>
+      web:
+    </label>
+    <input type="text" formControlName="web" class="form-control" value="{{visitedUser.web}}">
+  </div>
+
+  <input type="submit" value="Send profileData" class="cta">
+
+
+</form>
+</div>
+
+<div *ngIf="user.userId !== visitedUser.userId">
+
+    <div>
+      <label>
+        bio:
+      </label>
+      <label>{{visitedUser.bio}}</label>
+    </div>
+
+    <div>
+      <label>
+        image:
+      </label>
+      <label>{{visitedUser.image}}</label>
+    </div>
+
+    <div>
+      <label>
+        location:
+      </label>
+      <label>{{visitedUser.location}}</label>
+    </div>
+
+    <div>
+      <label>
+        name:
+      </label>
+      <label>{{visitedUser.name}}</label>
+    </div>
+
+    <div>
+      <label>
+        username:
+      </label>
+      <label>{{visitedUser.username}}</label>
+    </div>
+
+    <div>
+      <label>
+        web:
+      </label>
+      <label>{{visitedUser.web}}</label>
+    </div>
+
+
+</div>

@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
         data => {
           if (data !== null) {
             this.user = data;
-            console.log(this.user);
-            localStorage.setItem('loggedUser', JSON.stringify(this.user))
+            localStorage.setItem('loggedUser', JSON.stringify(this.user));
+            localStorage.setItem('visitedUser', JSON.stringify(this.user));
             this.router.navigate(['profilepage']);
           }
         }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../Models/User';
-import {stringify} from 'querystring';
 import {Observable} from 'rxjs';
 
 const httpOptions = {
@@ -26,6 +25,6 @@ export class LoginService {
 
   Register(user: User): Observable<User> {
     this.json = JSON.stringify(user);
-    return this.http.post<User>('http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/login/register', this.json, httpOptions);
+    return this.http.post<User>(`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/login/register`, this.json, httpOptions);
   }
 }

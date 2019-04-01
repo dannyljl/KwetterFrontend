@@ -1,3 +1,7 @@
-<p>
-  startpage works!
-</p>
+<h1>startpage</h1>
+
+<ul *ngIf="kweets">
+  <li *ngFor="let kweet of kweets.data">
+    <p>{{kweet.kweetId}} {{kweet.userId}} {{kweet.content}} {{kweet.date}}</p>
+  </li>
+</ul>

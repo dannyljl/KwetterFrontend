@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../Models/User';
-import {Observable, ObservableLike} from 'rxjs';
+import {Observable} from 'rxjs';
+import {Kweet} from '../../Models/Kweet';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,23 +18,23 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   json: string;
+  url: string;
 
   FollowUser(myId: number, theirId: number): Observable<string> {
-    return this.http.post<string>('http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilePage/' + theirId + '/' + myId, httpOptions);
+    return this.http.post<string>(`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilepage/${myId}/${theirId}`
+      , null, httpOptions);
+  }
+  Edit(visitedId: number, visitorId: number, user: User): Observable<User> {
+    this.json = JSON.stringify(user);
+    this.url = `http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilepage/${visitedId}/edit/${visitorId}`;
+    return this.http.post<User>(this.url, this.json, httpOptions);
   }
 
   GetUser(theirId: number): Observable<User> {
-    return this.http.get<User>('http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilePage/' + theirId , httpOptions);
+    return this.http.get<User>(`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilepage/${theirId}`);
   }
 
-  EditProfile(theirId: number, myId: number, user: User) {
-    this.json = JSON.stringify(user);
-    return this.http.post<string>
-    ('http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilePage/'
-      + theirId
-      + '/'
-      + myId
-      + '/edit'
-      , this.json, httpOptions);
+  GetLatestKweets(theirId: number) {
+    return this.http.get<Array<Kweet>>(`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/profilepage/${theirId}/kweets`);
   }
 }
