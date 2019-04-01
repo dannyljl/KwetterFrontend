@@ -1,3 +1,4 @@
+import {FollowerDTO} from './FollowerDTO';
 
 export class User {
   userId: number;
@@ -8,5 +9,7 @@ export class User {
   web: string;
   username: string;
   password: string;
+  followers: FollowerDTO[];
+  followings: FollowerDTO[];
 }
 

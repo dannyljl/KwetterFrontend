@@ -101,3 +101,31 @@
 
 
 </div>
+
+<p>
+  latest kweets
+</p>
+<ul *ngIf="kweets">
+  <li *ngFor="let kweet of kweets">
+    <p>{{kweet.kweetId}} {{kweet.userId}} {{kweet.content}} {{kweet.date}}</p>
+  </li>
+</ul>
+
+<p>
+  following
+</p>
+<ul *ngIf="visitedUser.followings">
+  <li *ngFor="let following of visitedUser.followings">
+    <p>{{following.userId}} {{following.name}}</p>
+  </li>
+</ul>
+
+<p>
+  followers
+</p>
+<ul *ngIf="visitedUser.followers">
+  <li *ngFor="let follower of visitedUser.followers">
+    <p>{{follower.userId}} {{follower.name}}</p>
+  </li>
+</ul>
+

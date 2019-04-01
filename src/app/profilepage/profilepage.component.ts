@@ -31,6 +31,7 @@ export class ProfilepageComponent implements OnInit {
     });
     this.user = JSON.parse(localStorage.getItem('loggedUser'));
     this.visitedUser = JSON.parse(localStorage.getItem('visitedUser'));
+    console.log(this.visitedUser);
     this.profileService.GetLatestKweets(this.visitedUser.userId).subscribe( data => {
       this.kweets = data;
       }
@@ -49,7 +50,6 @@ export class ProfilepageComponent implements OnInit {
     this.newUser.web = this.f.web.value;
 
     console.log(this.newUser);
-    // this.profileService.FollowUser(this.visitedUser.userId, this.user.userId);
     this.profileService.Edit(this.visitedUser.userId, this.user.userId, this.newUser)
       .subscribe(
         data => {

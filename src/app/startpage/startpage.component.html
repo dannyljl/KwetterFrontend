@@ -1,7 +1,7 @@
 <h1>startpage</h1>
 
 <ul *ngIf="kweets">
-  <li *ngFor="let kweet of kweets.data">
+  <li *ngFor="let kweet of kweets">
     <p>{{kweet.kweetId}} {{kweet.userId}} {{kweet.content}} {{kweet.date}}</p>
   </li>
 </ul>
