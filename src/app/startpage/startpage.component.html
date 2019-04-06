@@ -5,3 +5,50 @@
     <p>{{kweet.kweetId}} {{kweet.userId}} {{kweet.content}} {{kweet.date}}</p>
   </li>
 </ul>
+
+<form [formGroup]="startPage" (ngSubmit)="search()">
+
+  <div>
+    <label>
+      search kweet for:
+    </label>
+    <input type="text" formControlName="searchedKweet" class="form-control">
+  </div>
+
+  <input type="submit" value="search kweet" class="cta">
+
+
+</form>
+
+<form [formGroup]="startPage" (ngSubmit)="createKweet()">
+
+  <div>
+    <label>
+      kweet content:
+    </label>
+    <input type="text" formControlName="createdKweet" class="form-control">
+  </div>
+
+
+  <input type="submit" value="create kweet" class="cta">
+
+
+</form>
+
+<p>
+  following
+</p>
+<ul *ngIf="visitedUser">
+  <li *ngFor="let following of visitedUser.followings">
+    <p (click)="profile(following.userId)">{{following.userId}} {{following.name}}</p>
+  </li>
+</ul>
+
+<p>
+  followers
+</p>
+<ul *ngIf="visitedUser">
+  <li *ngFor="let follower of visitedUser.followers">
+    <p (click)="profile(follower.userId)")>{{follower.userId}} {{follower.name}}</p>
+  </li>
+</ul>

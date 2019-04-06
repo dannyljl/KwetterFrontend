@@ -34,6 +34,7 @@ export class ProfilepageComponent implements OnInit {
     console.log(this.visitedUser);
     this.profileService.GetLatestKweets(this.visitedUser.userId).subscribe( data => {
       this.kweets = data;
+      console.log(this.kweets);
       }
     );
   }
@@ -55,14 +56,18 @@ export class ProfilepageComponent implements OnInit {
         data => {
           if (data !== null) {
             this.visitedUser = data;
-            console.log(this.visitedUser);
+            localStorage.setItem('visitedUser', JSON.stringify(this.visitedUser));
           }
         }
       );
   }
 
   onClick(id: number) {
-    console.log('hey');
+    this.profileService.GetUser(id).subscribe(data =>
+    this.visitedUser = data
+    );
+    localStorage.setItem('visitedUser', JSON.stringify(this.visitedUser));
+    this.router.navigate(['profilepage']);
   }
 
 }

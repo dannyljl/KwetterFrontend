@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
             this.user = data;
             localStorage.setItem('loggedUser', JSON.stringify(this.user));
             localStorage.setItem('visitedUser', JSON.stringify(this.user));
-            this.router.navigate(['profilepage']);
+            this.router.navigate(['startpage']);
           }
         }
       );
