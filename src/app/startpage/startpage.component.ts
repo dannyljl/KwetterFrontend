@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {StartpageService} from '../services/startpage.service';
 import {User} from '../../Models/User';
 import {Kweet} from '../../Models/Kweet';
+import {__await} from 'tslib';
 
 @Component({
   selector: 'app-startpage',
@@ -14,6 +15,8 @@ import {Kweet} from '../../Models/Kweet';
 export class StartpageComponent implements OnInit {
 
   startPage: FormGroup;
+
+  token: string;
 
   user: User;
   visitedUser: User;
@@ -38,9 +41,7 @@ export class StartpageComponent implements OnInit {
 
     this.visitedUser = JSON.parse(localStorage.getItem('visitedUser'));
 
-    this.startpageService.GetTimeline(this.user.userId).subscribe(data => {
-      this.kweets = data;
-    });
+    this.refresh();
   }
 
   get f() {return this.startPage.controls; }
@@ -52,22 +53,26 @@ export class StartpageComponent implements OnInit {
   }
 
   createKweet() {
-    this.startpageService.createTweet(this.f.createdKweet.value, this.user.userId).subscribe();
+      this.startpageService.createTweet(this.f.createdKweet.value, this.user.userId).subscribe(createdkweet => {
+        this.kweets.push(createdkweet);
+      });
+      this.ref.detectChanges();
+  }
+
+  refresh() {
     this.startpageService.GetTimeline(this.user.userId).subscribe(data => {
       this.kweets = data;
+      this.ref.detectChanges();
     });
-    this.ref.detectChanges();
   }
 
   profile(userId: number) {
     this.profilepageService.GetUser(userId).subscribe(data =>
       this.visitedUser = data
-
     );
     localStorage.setItem('visitedUser', JSON.stringify(this.visitedUser));
     this.router.navigate(['profilepage']);
   }
-
   logout() {
 
   }

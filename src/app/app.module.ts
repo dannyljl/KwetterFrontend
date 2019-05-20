@@ -9,12 +9,13 @@ import { NavComponent } from './nav/nav.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { StartpageComponent } from './startpage/startpage.component';
+import {AuthInterceptor} from './interceptor/AuthInterceptor';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { StartpageComponent } from './startpage/startpage.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

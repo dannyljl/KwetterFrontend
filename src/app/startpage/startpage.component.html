@@ -20,6 +20,15 @@
 
 </form>
 
+<div *ngIf="searchedKweets">
+<h1>Searched kweets</h1>
+<ul *ngIf="searchedKweets">
+  <li *ngFor="let kweet of searchedKweets">
+    <p>{{kweet.kweetId}} {{kweet.userId}} {{kweet.content}} {{kweet.date}}</p>
+  </li>
+</ul>
+</div>
+
 <form [formGroup]="startPage" (ngSubmit)="createKweet()">
 
   <div>

@@ -9,6 +9,7 @@ export class User {
   web: string;
   username: string;
   password: string;
+  token: string;
   followers: FollowerDTO[];
   followings: FollowerDTO[];
 }

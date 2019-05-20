@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Kweet} from '../../Models/Kweet';
-import {FormGroup} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,9 +28,9 @@ export class StartpageService {
     (`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/startpage/search`, this.json, httpOptions);
   }
 
-  createTweet(content: string, userId: number) {
+  createTweet(content: string, userId: number): Observable<Kweet> {
     this.json = JSON.stringify(content);
-    return this.http.put
+    return this.http.put<Kweet>
     (`http://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/startpage/${userId}`, this.json, httpOptions);
   }
 }
