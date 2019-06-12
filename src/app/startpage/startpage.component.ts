@@ -42,8 +42,6 @@ export class StartpageComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('loggedUser'));
 
-    this.visitedUser = JSON.parse(localStorage.getItem('visitedUser'));
-
     this.subject = webSocket('ws://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/echo-socket/' + this.user.userId);
 
     this.subject.subscribe(
@@ -85,11 +83,16 @@ export class StartpageComponent implements OnInit {
   }
 
   profile(userId: number) {
-    this.profilepageService.GetUser(userId).subscribe(data =>
-      this.visitedUser = data
+    this.visitedUser = new User();
+    this.profilepageService.GetUser(userId).subscribe(
+      data => {
+        if (data !== null) {
+          this.visitedUser = data;
+          localStorage.setItem('visitedUser', JSON.stringify(this.visitedUser));
+          this.router.navigate(['profilepage']);
+        }
+      }
     );
-    localStorage.setItem('visitedUser', JSON.stringify(this.visitedUser));
-    this.router.navigate(['profilepage']);
   }
 
   logout() {

@@ -1,4 +1,6 @@
-<h1>startpage</h1>
+<div *ngIf="user">
+  <h1>Welcome to the startpage {{user.username}}</h1>
+</div>
 
 <ul *ngIf="kweets">
   <li *ngFor="let kweet of kweets">
@@ -47,8 +49,8 @@
 <p>
   following
 </p>
-<ul *ngIf="visitedUser">
-  <li *ngFor="let following of visitedUser.followings">
+<ul *ngIf="user">
+  <li *ngFor="let following of user.followings">
     <p (click)="profile(following.userId)">{{following.userId}} {{following.name}}</p>
   </li>
 </ul>
@@ -56,8 +58,8 @@
 <p>
   followers
 </p>
-<ul *ngIf="visitedUser">
-  <li *ngFor="let follower of visitedUser.followers">
+<ul *ngIf="user">
+  <li *ngFor="let follower of user.followers">
     <p (click)="profile(follower.userId)")>{{follower.userId}} {{follower.name}}</p>
   </li>
 </ul>
