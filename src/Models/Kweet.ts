@@ -3,5 +3,5 @@ export class Kweet {
   userId: number;
   creatorName: string;
   content: string;
-  date: Date;
+  date: string;
 }

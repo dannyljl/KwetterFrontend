@@ -6,7 +6,6 @@ import {StartpageService} from '../services/startpage.service';
 import {User} from '../../Models/User';
 import {Kweet} from '../../Models/Kweet';
 import {webSocket} from 'rxjs/webSocket';
-import {create} from 'domain';
 
 @Component({
   selector: 'app-startpage',
@@ -24,6 +23,7 @@ export class StartpageComponent implements OnInit {
   kweets: Kweet[];
   searchedKweets: object;
   createdKweet: Kweet;
+  SocketKweet: Kweet;
   subject;
 
   constructor(
@@ -40,17 +40,17 @@ export class StartpageComponent implements OnInit {
       createdKweet: ['', Validators.required]
     });
 
-    this.subject = webSocket('ws://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/echo-socket');
-
-    this.subject.subscribe(
-      msg => console.log('message received: ' + msg), // Called whenever there is a message from the server.
-      err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
-      () => console.log('complete') // Called when connection is closed (for whatever reason).
-    );
-
     this.user = JSON.parse(localStorage.getItem('loggedUser'));
 
     this.visitedUser = JSON.parse(localStorage.getItem('visitedUser'));
+
+    this.subject = webSocket('ws://localhost:8080/WebLogEJB_Finished-1.0-SNAPSHOT/echo-socket/' + this.user.userId);
+
+    this.subject.subscribe(
+      msg => console.log(this.kweets.push(msg)),
+      err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
+      () => console.log('complete') // Called when connection is closed (for whatever reason).
+    );
 
     this.refresh();
   }
@@ -66,11 +66,13 @@ export class StartpageComponent implements OnInit {
   }
 
   createKweet() {
-    this.f.createdKweet;
-    this.startpageService.createTweet(this.f.createdKweet.value, this.user.userId).subscribe(createdkweet => {
-      this.kweets.push(createdkweet);
-      this.subject.next(createdkweet);
-    });
+    this.createdKweet = new Kweet();
+    this.createdKweet.content = this.f.createdKweet.value;
+    this.createdKweet.userId = this.user.userId;
+    this.createdKweet.date = new Date().toString();
+    this.startpageService.createTweet(this.createdKweet.content, this.createdKweet.userId).subscribe();
+    this.kweets.push(this.createdKweet);
+    this.subject.next(this.createdKweet);
 
     this.ref.detectChanges();
   }
